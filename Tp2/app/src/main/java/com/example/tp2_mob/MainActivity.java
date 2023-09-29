@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -66,13 +67,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startSecondaryActivity(View view) {
-        if(selectedImage != -1) {
+        if (selectedImage != -1) { //Gestion dexecption : oblige de selectionner au moins une image
             Intent intent = new Intent(this, SecondActivity.class);
             intent.putExtra("imageSelection", selectedImage + 1);
             intent.putExtra("imageId", gridView.getAdapter().getItemId(selectedImage));
             startActivity(intent);
+        } else {
+            Toast.makeText(this, "Veuillez sélectionner une image avant de continuer.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 
