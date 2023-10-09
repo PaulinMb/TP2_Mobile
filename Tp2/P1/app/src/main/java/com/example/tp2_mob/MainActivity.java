@@ -1,12 +1,6 @@
 package com.example.tp2_mob;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -34,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         imgs = getResources().obtainTypedArray(R.array.images);
 
         ImageAdapter adapter = new ImageAdapter(getApplicationContext(), images, this);
-        gridView = (GridView) findViewById(R.id.simplegridview);
+        gridView = findViewById(R.id.simplegridview);
         gridView.setAdapter(adapter);
     }
 
@@ -52,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectImage(View view, int imageView) {
-        if(hasRolled){
+        if (hasRolled) {
             selectedImage = imageView;
             for (int i = 0; i < gridView.getChildCount(); i++) {
-                if(i == imageView) {
+                if (i == imageView) {
                     gridView.getChildAt(i).setAlpha(0.5f);
                 } else {
                     gridView.getChildAt(i).setAlpha(1);
@@ -67,17 +61,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startSecondaryActivity(View view) {
-        if (selectedImage != -1) { //Gestion dexecption : oblige de selectionner au moins une image
+        if (selectedImage != -1) {
             Intent intent = new Intent(this, SecondActivity.class);
-            intent.putExtra("imageSelection", selectedImage + 1);
-            intent.putExtra("imageId", gridView.getAdapter().getItemId(selectedImage));
+            intent.putExtra("imageResource", images[selectedImage]);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Veuillez sélectionner une image avant de continuer.", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
 }
